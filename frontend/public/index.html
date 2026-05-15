@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南竹竹制品 | 自然之美，匠心传承</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-text">南竹</span>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="#home" class="nav-link">首页</a></li>
+                <li><a href="#products" class="nav-link">产品中心</a></li>
+                <li><a href="#about" class="nav-link">关于我们</a></li>
+                <li><a href="#contact" class="nav-link">联系我们</a></li>
+            </ul>
+            <button class="navbar-toggle" id="navbarToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">自然之美</h1>
+            <h2 class="hero-subtitle">匠心传承</h2>
+            <p class="hero-description">源自福建长汀，精选优质楠竹，手工打造每一件作品</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">探索产品</a>
+                <a href="#about" class="btn btn-secondary">了解更多</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>向下滚动</span>
+            <div class="scroll-indicator"></div>
+        </div>
+    </section>
+
+    <section id="products" class="products-section">
+        <div class="section-header">
+            <h2 class="section-title">产品中心</h2>
+            <p class="section-subtitle">精选竹制品，品质生活</p>
+        </div>
+        
+        <div class="products-grid" id="productsGrid">
+        </div>
+
+        <div class="category-filter">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="kitchen">竹制厨具</button>
+            <button class="filter-btn" data-filter="home">竹制家居</button>
+            <button class="filter-btn" data-filter="craft">竹制工艺品</button>
+            <button class="filter-btn" data-filter="office">办公用品</button>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 class="section-title">关于我们</h2>
+                <p class="about-text">
+                    长汀县南竹竹制品有限公司成立于2017年，位于福建省龙岩市长汀县。我们专注于竹制品的研发、生产与销售，致力于为消费者提供高品质、环保、健康的竹制产品。
+                </p>
+                <p class="about-text">
+                    公司拥有专业的生产团队和先进的生产设备，精选福建优质楠竹，传承传统工艺与现代技术相结合，打造出兼具实用与美学的竹制品。我们的产品涵盖厨具、家居、工艺品等多个领域，深受消费者喜爱。
+                </p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">产品种类</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3000万+</div>
+                        <div class="stat-label">年销售额</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">合作经销商</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=lush%20green%20bamboo%20forest%20with%20sunlight%20streaming%20through%20tall%20bamboo%20stems%20peaceful%20nature%20landscape&image_size=landscape_16_9" alt="竹林">
+            </div>
+        </div>
+
+        <div class="values-section">
+            <h2 class="section-title">企业理念</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🌿</div>
+                    <h3>绿色环保</h3>
+                    <p>选用可持续采伐的优质竹材，倡导绿色生活方式</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">👨‍🎨</div>
+                    <h3>匠心工艺</h3>
+                    <p>传承百年竹艺，每一件产品都经过精心打磨</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">💎</div>
+                    <h3>品质至上</h3>
+                    <p>严格的质量把控，确保每一件产品的卓越品质</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>客户为本</h3>
+                    <p>以客户需求为导向，提供优质的产品与服务</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="section-header">
+            <h2 class="section-title">联系我们</h2>
+            <p class="section-subtitle">期待与您的合作</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-content">
+                        <h4>公司地址</h4>
+                        <p>福建省龙岩市长汀县工业园区</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-content">
+                        <h4>联系电话</h4>
+                        <p>0597-1234567</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-content">
+                        <h4>电子邮箱</h4>
+                        <p>contact@nanzhu-bamboo.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div class="contact-content">
+                        <h4>营业时间</h4>
+                        <p>周一至周六 8:00-18:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <form class="contact-form" id="contactForm">
+                    <input type="text" id="contactName" placeholder="您的姓名" class="form-input" required>
+                    <input type="email" id="contactEmail" placeholder="电子邮箱" class="form-input" required>
+                    <input type="tel" id="contactPhone" placeholder="联系电话" class="form-input" required>
+                    <textarea id="contactContent" placeholder="留言内容" class="form-textarea" required></textarea>
+                    <button type="submit" class="btn btn-primary">发送留言</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-text">南竹</span>
+                <p>自然之美，匠心传承</p>
+            </div>
+            <div class="footer-links">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#products">产品中心</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>产品分类</h4>
+                <ul>
+                    <li><a href="#products">竹制厨具</a></li>
+                    <li><a href="#products">竹制家居</a></li>
+                    <li><a href="#products">竹制工艺品</a></li>
+                    <li><a href="#products">办公用品</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>联系方式</h4>
+                <p>电话：0597-1234567</p>
+                <p>邮箱：contact@nanzhu-bamboo.com</p>
+                <p>地址：福建省龙岩市长汀县工业园区</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 长汀县南竹竹制品有限公司 版权所有 | <a href="admin.html" target="_blank" style="color: #DEB887; text-decoration: none;">管理后台</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

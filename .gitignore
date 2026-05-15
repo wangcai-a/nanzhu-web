@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+venv/
+env/
+.venv/
+virtualenv/
+
+# 数据库
+*.db
+*.sqlite
+*.sqlite3
+nanzhu.db
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+
+# 前端构建输出
+node_modules/
+*.log
+
+# 临时文件
+*.tmp
+*.bak
+*.cache
