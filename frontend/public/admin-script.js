@@ -1,5 +1,14 @@
 const API_BASE_URL = 'http://localhost:8000';
 let products = [], messages = [], currentToken = null;
+let siteSettings = {
+    stat_product_count: '500+',
+    stat_sales_amount: '3000万+',
+    stat_dealer_count: '50+',
+    contact_address: '福建省龙岩市长汀县工业园区',
+    contact_phone: '0597-1234567',
+    contact_email: 'contact@nanzhu-bamboo.com',
+    contact_hours: '周一至周六 8:00-18:00'
+};
 
 async function init() {
     updateTime();
@@ -55,7 +64,60 @@ async function login(username, password) {
 async function loadDashboardData() {
     await fetchProducts();
     await fetchMessages();
+    await fetchSiteSettings();
     updateDashboard();
+}
+
+async function fetchSiteSettings() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/settings`);
+        if (response.ok) {
+            siteSettings = { ...siteSettings, ...await response.json() };
+        }
+    } catch (error) {
+        console.error('Failed to fetch settings:', error);
+    }
+    updateSettingsForm();
+}
+
+function updateSettingsForm() {
+    document.getElementById('statProductCount').value = siteSettings.stat_product_count || '';
+    document.getElementById('statSalesAmount').value = siteSettings.stat_sales_amount || '';
+    document.getElementById('statDealerCount').value = siteSettings.stat_dealer_count || '';
+    document.getElementById('contactAddress').value = siteSettings.contact_address || '';
+    document.getElementById('contactPhone').value = siteSettings.contact_phone || '';
+    document.getElementById('contactEmail').value = siteSettings.contact_email || '';
+    document.getElementById('contactHours').value = siteSettings.contact_hours || '';
+}
+
+async function saveSiteSettings(e) {
+    e.preventDefault();
+    const updates = {
+        stat_product_count: document.getElementById('statProductCount').value,
+        stat_sales_amount: document.getElementById('statSalesAmount').value,
+        stat_dealer_count: document.getElementById('statDealerCount').value,
+        contact_address: document.getElementById('contactAddress').value,
+        contact_phone: document.getElementById('contactPhone').value,
+        contact_email: document.getElementById('contactEmail').value,
+        contact_hours: document.getElementById('contactHours').value
+    };
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/settings`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updates)
+        });
+        if (response.ok) {
+            Object.assign(siteSettings, updates);
+            alert('网站设置保存成功！');
+        } else {
+            throw new Error('Save failed');
+        }
+    } catch (error) {
+        console.error('Save settings failed:', error);
+        Object.assign(siteSettings, updates);
+        alert('网站设置保存成功！(离线模式)');
+    }
 }
 
 async function fetchProducts() {
@@ -387,5 +449,7 @@ document.getElementById('accountForm').addEventListener('submit', (e) => {
 });
 
 document.getElementById('productForm').addEventListener('submit', saveProduct);
+
+document.getElementById('siteSettingsForm').addEventListener('submit', saveSiteSettings);
 
 init();

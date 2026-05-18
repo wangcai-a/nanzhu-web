@@ -1,5 +1,18 @@
 const API_BASE_URL = 'http://localhost:8000';
 
+const defaultSettings = {
+    site_name: '南竹竹制品',
+    stat_product_count: '500+',
+    stat_sales_amount: '3000万+',
+    stat_dealer_count: '50+',
+    contact_address: '福建省龙岩市长汀县工业园区',
+    contact_phone: '0597-1234567',
+    contact_email: 'contact@nanzhu-bamboo.com',
+    contact_hours: '周一至周六 8:00-18:00'
+};
+
+let settings = { ...defaultSettings };
+
 const defaultProducts = [
     { id: 1, name: '天然竹筷套装', category: 'kitchen', price: 29.90, description: '精选优质楠竹，手工打磨，环保健康', image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=premium%20bamboo%20chopsticks%20set%20elegant%20white%20background%20product%20photography%20minimalist%20style&image_size=square_hd' },
     { id: 2, name: '竹制砧板', category: 'kitchen', price: 89.00, description: '高密度竹材，抗菌耐用，家用必备', image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bamboo%20cutting%20board%20kitchen%20utensil%20white%20background%20product%20photography%20clean%20minimalist&image_size=square_hd' },
@@ -10,6 +23,43 @@ const defaultProducts = [
 ];
 
 let products = [];
+
+async function fetchSettings() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/settings`);
+        if (response.ok) {
+            settings = { ...defaultSettings, ...await response.json() };
+        }
+    } catch (error) {
+        console.error('Failed to fetch settings:', error);
+    }
+    renderSettings();
+}
+
+function renderSettings() {
+    const statProduct = document.getElementById('stat-product-count');
+    const statSales = document.getElementById('stat-sales-amount');
+    const statDealer = document.getElementById('stat-dealer-count');
+    if (statProduct) statProduct.textContent = settings.stat_product_count;
+    if (statSales) statSales.textContent = settings.stat_sales_amount;
+    if (statDealer) statDealer.textContent = settings.stat_dealer_count;
+
+    const contactAddress = document.getElementById('contact-address');
+    const contactPhone = document.getElementById('contact-phone');
+    const contactEmail = document.getElementById('contact-email');
+    const contactHours = document.getElementById('contact-hours');
+    if (contactAddress) contactAddress.textContent = settings.contact_address;
+    if (contactPhone) contactPhone.textContent = settings.contact_phone;
+    if (contactEmail) contactEmail.textContent = settings.contact_email;
+    if (contactHours) contactHours.textContent = settings.contact_hours;
+
+    const footerPhone = document.getElementById('footer-phone');
+    const footerEmail = document.getElementById('footer-email');
+    const footerAddress = document.getElementById('footer-address');
+    if (footerPhone) footerPhone.textContent = `电话：${settings.contact_phone}`;
+    if (footerEmail) footerEmail.textContent = `邮箱：${settings.contact_email}`;
+    if (footerAddress) footerAddress.textContent = `地址：${settings.contact_address}`;
+}
 
 async function fetchProducts() {
     try {
@@ -103,6 +153,7 @@ function initScrollAnimations() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    fetchSettings();
     fetchProducts();
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
