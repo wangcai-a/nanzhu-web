@@ -4,23 +4,25 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import Admin
 from ..schemas import Token
-from passlib.context import CryptContext
+import bcrypt
 from jose import JWTError, jwt
 from datetime import timedelta
 
 router = APIRouter(prefix="/api/auth", tags=["认证管理"])
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 SECRET_KEY = "nanzhu_bamboo_secret_key_for_jwt_token_generation_2024"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    # 使用 bcrypt 直接验证
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 def get_password_hash(password):
-    return pwd_context.hash(password)
+    # 使用 bcrypt 直接哈希
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed.decode('utf-8')
 
 def get_admin(db: Session, username: str):
     return db.query(Admin).filter(Admin.username == username).first()

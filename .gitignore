@@ -4,40 +4,52 @@ __pycache__/
 *$py.class
 *.so
 .Python
-*.egg-info/
-dist/
 build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
 *.egg
+
+# Virtual Environment
 venv/
+ENV/
 env/
-.venv/
-virtualenv/
+.venv
 
-# 数据库
-*.db
-*.sqlite
-*.sqlite3
-nanzhu.db
-
-# 编辑器
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# 系统
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# OS
 .DS_Store
 Thumbs.db
 
-# 日志
-*.log
-
-# 前端构建输出
-node_modules/
-*.log
-
-# 临时文件
-*.tmp
-*.bak
+# Cache
 *.cache
+.cache/

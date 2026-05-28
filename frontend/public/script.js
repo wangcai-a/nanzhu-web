@@ -78,19 +78,23 @@ function renderProducts() {
     if (!grid) return;
     grid.innerHTML = products.map(product => `
         <div class="product-card" data-category="${product.category}">
-            <div class="product-image">
+            <div class="product-image" onclick="viewProductDetail(${product.id})" style="cursor: pointer;">
                 <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300/228B22/ffffff?text=${encodeURIComponent(product.name)}'">
             </div>
             <div class="product-info">
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-description">${product.description}</p>
                 <div class="product-price">¥${product.price.toFixed(2)}</div>
-                <button class="btn btn-outline">查看详情</button>
+                <button class="btn btn-outline" onclick="viewProductDetail(${product.id})">查看详情</button>
             </div>
         </div>
     `).join('');
     initProductFilters();
     initScrollAnimations();
+}
+
+function viewProductDetail(productId) {
+    window.location.href = `/product.html?id=${productId}`;
 }
 
 function initProductFilters() {
@@ -122,32 +126,62 @@ async function submitContactForm(e) {
             body: JSON.stringify(data)
         });
         if (response.ok) {
-            alert('感谢您的留言！我们会尽快与您联系。');
+            alert('留言已提交，我们会尽快与您联系！');
             e.target.reset();
+        } else {
+            alert('提交失败，请稍后重试');
         }
     } catch (error) {
-        console.error('Failed to submit message:', error);
-        alert('留言已提交（离线模式）');
-        e.target.reset();
+        console.error('Submit contact form error:', error);
+        alert('提交失败，请稍后重试');
     }
 }
 
 function initScrollAnimations() {
-    const observer = new IntersectionObserver(entries => {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('fade-in-up');
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
-    ['.section-header', '.product-card', '.about-content', '.about-image', '.value-card', '.contact-info', '.contact-form-container'].forEach(selector => {
-        document.querySelectorAll(selector).forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
+    document.querySelectorAll('.product-card, .value-card, .stat-item, .contact-item').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+function initNavbarScroll() {
+    const navbar = document.getElementById('navbar');
+    if (!navbar) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+}
+
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         });
     });
 }
@@ -155,12 +189,7 @@ function initScrollAnimations() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchSettings();
     fetchProducts();
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
-    document.getElementById('navbarToggle')?.addEventListener('click', () => {
-        document.querySelector('.navbar-menu')?.classList.toggle('active');
-    });
-    document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => {
-        document.querySelector('.navbar-menu')?.classList.remove('active');
-    }));
+    initNavbarScroll();
+    initSmoothScroll();
+    document.getElementById('contactForm')?.addEventListener('submit', submitContactForm);
 });

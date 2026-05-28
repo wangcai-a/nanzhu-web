@@ -232,6 +232,46 @@ function renderProductsTable() {
     `).join('');
 }
 
+async function handleImageUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const preview = document.getElementById('imagePreview');
+    const imageUrlInput = document.getElementById('productImageUrl');
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        preview.innerHTML = `<img src="${e.target.result}" alt="预览" class="preview-img">`;
+    };
+    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/upload`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data.url) {
+                imageUrlInput.value = data.url;
+                alert('图片上传成功！');
+            } else {
+                throw new Error(data.error || '上传失败');
+            }
+        } else {
+            throw new Error('Upload failed');
+        }
+    } catch (error) {
+        console.error('Image upload failed:', error);
+        imageUrlInput.value = '';
+        alert('图片上传失败，请重试！');
+    }
+}
+
 function showProductModal(product = null) {
     const form = document.getElementById('productForm');
     if (product) {
@@ -241,11 +281,15 @@ function showProductModal(product = null) {
         document.getElementById('productCategory').value = product.category;
         document.getElementById('productPrice').value = product.price;
         document.getElementById('productDescription').value = product.description;
-        document.getElementById('productImage').value = product.image;
+        document.getElementById('productImage').value = '';
+        document.getElementById('productImageUrl').value = product.image;
+        document.getElementById('imagePreview').innerHTML = `<img src="${product.image}" alt="预览" class="preview-img">`;
     } else {
         document.getElementById('productModalTitle').textContent = '添加产品';
         form.reset();
         document.getElementById('productId').value = '';
+        document.getElementById('productImageUrl').value = '';
+        document.getElementById('imagePreview').innerHTML = '';
     }
     document.getElementById('productModal').classList.remove('hidden');
 }
@@ -256,12 +300,19 @@ function closeProductModal() {
 
 async function saveProduct(e) {
     e.preventDefault();
+    
+    const imageUrl = document.getElementById('productImageUrl').value;
+    if (!imageUrl) {
+        alert('请先上传产品图片！');
+        return;
+    }
+
     const productData = {
         name: document.getElementById('productName').value,
         category: document.getElementById('productCategory').value,
         price: parseFloat(document.getElementById('productPrice').value),
         description: document.getElementById('productDescription').value,
-        image: document.getElementById('productImage').value
+        image: imageUrl
     };
     const id = document.getElementById('productId').value;
     try {

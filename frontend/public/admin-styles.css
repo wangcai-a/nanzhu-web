@@ -784,6 +784,59 @@ body {
     line-height: 1.8;
 }
 
+.image-upload-container {
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background: var(--white);
+    transition: all 0.3s ease;
+}
+
+.image-upload-container:hover {
+    border-color: var(--primary-color);
+    background: rgba(34, 139, 34, 0.02);
+}
+
+.image-upload-container input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: var(--white);
+    cursor: pointer;
+}
+
+.image-upload-container input[type="file"]:hover {
+    border-color: var(--primary-color);
+}
+
+.image-preview {
+    margin-top: 15px;
+    padding: 15px;
+    background: var(--light-gray);
+    border-radius: 8px;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-preview .preview-img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.upload-hint {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
